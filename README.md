@@ -8,7 +8,7 @@ Samo neki notes di si pratim kaj radim sad i di stojim
 - [MagicWand](https://github.com/twosixlabs/magicwand-datatool)
 - [Selenium with Python](https://selenium-python.readthedocs.io/index.html)
 ### TODO
-- [] vidit jel se moze integrirat Droopescan u Magicwand
+- [ ] vidit jel se moze integrirat Droopescan u Magicwand
 
 
 ## 2) Obrada
@@ -24,6 +24,5 @@ Samo neki notes di si pratim kaj radim sad i di stojim
 - [Kafka Connect]()
 
 ### TODO
--[ ] local files sink
--[] hdfs sink
-- [ ] opala
+- [ ] local files sink
+- [ ] hdfs sink
