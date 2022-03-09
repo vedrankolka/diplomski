@@ -19,6 +19,7 @@ Samo neki notes di si pratim kaj radim sad i di stojim
 
 ### Notes
 - koristit Kafka Streams za pretvaranje `.pcap` u `.csv` pomoću CIC FlowMetera ili Zeeka
+- mozda koristit `magicwand covert` za pretvaranje hmmm?
 
 ## 3) Spremanje
 ### Tehnologije za proucit
