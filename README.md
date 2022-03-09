@@ -1,4 +1,4 @@
-# Diplosmki
+# Diplomski
 Samo neki notes di si pratim kaj radim sad i di stojim
 
 ## 1) Generiranje
