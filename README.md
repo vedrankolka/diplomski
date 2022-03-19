@@ -9,6 +9,7 @@ Samo neki notes di si pratim kaj radim sad i di stojim
 - [Selenium with Python](https://selenium-python.readthedocs.io/index.html)
 ### TODO
 - [ ] vidit jel se moze integrirat Droopescan u Magicwand
+- [ ] probat pokrenut Droopescan sa docker-compose tak da u command citmao env vars `"$URL` i to
 
 
 ## 2) Obrada
