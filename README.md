@@ -17,6 +17,7 @@ OK jebeš magicwand, nemremo nikaj s njim jer je prelos, napravit cemo sve svoje
 - [ ] dodat neki drugi napad (mozda synflood)
 - [ ] dodat content na stranicu
 - [ ] spojit FileStreamConnector da cita `.pcap` od `tcpdumpa`
+- [ ] prebacit sam network unutar dockera, dakle <b>ne na hostu</b>
 
 ## 2) Obrada
 ### Tehnologije za proucit
