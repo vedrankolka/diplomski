@@ -1,0 +1,58 @@
+version: '3.3'
+
+services:
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: wpdb
+      MYSQL_USER: gudi
+      MYSQL_PASSWORD: password
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db:/var/lib/mysql
+
+  wordpress:
+    image: wordpress
+    hostname: wordpress
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: gudi
+      WORDPRESS_DB_PASSWORD: password
+      WORDPRESS_DB_NAME: wpdb
+    depends_on:
+      - db
+    volumes:
+      - wordpress:/var/www/html
+
+  # scanning attack on the server
+  droopescan:
+    image: droope/droopescan:latest
+    network_mode: host
+    entrypoint: "droopescan"
+    # TODO dodat sleep $((1 + $RANDOM % 5)) &&
+    command: "scan wordpress -u http://localhost:8080"
+    depends_on:
+      - wordpress
+    volumes:
+      - droopescan:/home/droopescan
+
+  # locust agent
+  locust:
+    image: locustio/locust
+    network_mode: host
+    volumes:
+      - ./:/mnt/locust
+    depends_on:
+      - wordpress
+    command: -f /mnt/locust/locustfile.py -u 5 -r 1 -H http://localhost:8080 --headless
+
+
+volumes:
+  wordpress:
+  db:
+  droopescan:
