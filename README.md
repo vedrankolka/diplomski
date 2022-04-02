@@ -7,10 +7,16 @@ Samo neki notes di si pratim kaj radim sad i di stojim
 - [DroopeScan](https://github.com/SamJoan/droopescan)
 - [MagicWand](https://github.com/twosixlabs/magicwand-datatool)
 - [Selenium with Python](https://selenium-python.readthedocs.io/index.html)
-### TODO
-- [ ] vidit jel se moze integrirat Droopescan u Magicwand
-- [ ] probat pokrenut Droopescan sa docker-compose tak da u command citmao env vars `"$URL` i to
+### Notes
+OK jebeš magicwand, nemremo nikaj s njim jer je prelos, napravit cemo sve svoje lol
 
+### TODO
+- [x] vidit jel se moze integrirat Droopescan u Magicwand
+- [x] probat pokrenut Droopescan sa docker-compose tak da u command citmao env vars `"$URL"` i to
+- [ ] dodat random sleep prije pokretanja Droopescana
+- [ ] dodat neki drugi napad (mozda synflood)
+- [ ] dodat content na stranicu
+- [ ] spojit FileStreamConnector da cita `.pcap` od `tcpdumpa`
 
 ## 2) Obrada
 ### Tehnologije za proucit
