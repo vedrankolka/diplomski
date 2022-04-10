@@ -31,15 +31,11 @@ services:
       - db
     volumes:
       - wordpress:/var/www/html
-
+  # moj mali container na koji se spojis i ima instaliran curl
+  # docker exec -it ime_containera bash
+  # curl wordpress
   curl:
     image: curl:client
-
-  # tcpdump:
-  #   image: kaazing/tcpdump
-  #   network_mode: host
-  #   volumes:
-  #     - ./tcpdump:/tcpdump
 
 volumes:
   wordpress:

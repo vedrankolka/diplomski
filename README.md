@@ -7,17 +7,21 @@ Samo neki notes di si pratim kaj radim sad i di stojim
 - [DroopeScan](https://github.com/SamJoan/droopescan)
 - [MagicWand](https://github.com/twosixlabs/magicwand-datatool)
 - [Selenium with Python](https://selenium-python.readthedocs.io/index.html)
+- Neki BrowsingBot da radi benigni promet
 ### Notes
 OK jebeš magicwand, nemremo nikaj s njim jer je prelos, napravit cemo sve svoje lol
+
+Evo [tutorial](https://faun.pub/snooping-on-container-traffic-in-docker-compose-d34764a01276) za snimanje prometa. 
 
 ### TODO
 - [x] vidit jel se moze integrirat Droopescan u Magicwand
 - [x] probat pokrenut Droopescan sa docker-compose tak da u command citmao env vars `"$URL"` i to
 - [ ] dodat random sleep prije pokretanja Droopescana
-- [ ] dodat neki drugi napad (mozda synflood)
-- [ ] dodat content na stranicu
+- [ ] dodat neki drugi napad ([flightsim](https://github.com/alphasoc/flightsim))
+- [x] dodat content na stranicu
 - [ ] spojit FileStreamConnector da cita `.pcap` od `tcpdumpa`
-- [ ] prebacit sam network unutar dockera, dakle <b>ne na hostu</b>
+- [x] prebacit sam network unutar dockera, dakle <b>ne na hostu</b>
+- [ ] dodat `.env` file u kojem pisu network name i output file i da onda to citaju svi kuis
 
 ## 2) Obrada
 ### Tehnologije za proucit
@@ -27,7 +31,7 @@ OK jebeš magicwand, nemremo nikaj s njim jer je prelos, napravit cemo sve svoje
 
 ### Notes
 - koristit Kafka Streams za pretvaranje `.pcap` u `.csv` pomoću CIC FlowMetera ili Zeeka
-- mozda koristit `magicwand covert` za pretvaranje hmmm?
+- mozda koristit `magicwand covert` za pretvaranje hmmm? Mislim da ne
 
 ## 3) Spremanje
 ### Tehnologije za proucit
