@@ -1,0 +1,76 @@
+version: '3.3'
+
+services:
+  # wordpress database
+  db:
+    image: mysql:5.7
+    restart: on-failure
+    environment:
+      MYSQL_DATABASE: wpdb
+      MYSQL_USER: gudi
+      MYSQL_PASSWORD: password
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db:/var/lib/mysql
+  # wordpress server
+  wordpress:
+    image: wordpress
+    hostname: wordpress
+    restart: on-failure
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: gudi
+      WORDPRESS_DB_PASSWORD: password
+      WORDPRESS_DB_NAME: wpdb
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_HOME', 'http://example.com');
+        define('WP_SITEURL', 'http://example.com');
+    depends_on:
+      - db
+    volumes:
+      - wordpress:/var/www/html
+
+  # scanning attack on the server
+  droopescan:
+    image: droopescan:sleepy
+    entrypoint: "droopescan"
+    command: "scan wordpress -u $SUT_ADDRESS"
+    environment:
+      MAX_SLEEP: "$MAX_SLEEP"
+    depends_on:
+      - wordpress
+    volumes:
+      - droopescan:/home/droopescan
+  
+  # flightsim (a few classic attacks)
+  flightsim:
+    image: flightsim:sleepy
+    command: "run"
+    environment:
+      MAX_SLEEP: "$MAX_SLEEP"
+    depends_on:
+      - wordpress
+    volumes:
+      - flightsim:/home/flightsim
+
+  # locust agent
+  locust:
+    image: locustio/locust
+    volumes:
+      - ./:/mnt/locust
+    depends_on:
+      - wordpress
+    command: -f /mnt/locust/locustfile.py -u $USERS -r $SPAWN_RATE -H $SUT_ADDRESS --headless
+
+networks:
+  default:
+    external:
+      name: "$NETWORK_NAME"
+
+volumes:
+  wordpress:
+  db:
+  droopescan:
+  flightsim:
