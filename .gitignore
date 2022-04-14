@@ -1,3 +1,5 @@
 # python stuff
-__pycache__
+*/__pycache__/*
 *proba*
+# .pcap fileove isto ne zelimo
+*.pcap
