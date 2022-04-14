@@ -16,12 +16,12 @@ Evo [tutorial](https://faun.pub/snooping-on-container-traffic-in-docker-compose-
 ### TODO
 - [x] vidit jel se moze integrirat Droopescan u Magicwand
 - [x] probat pokrenut Droopescan sa docker-compose tak da u command citmao env vars `"$URL"` i to
-- [ ] dodat random sleep prije pokretanja Droopescana
-- [ ] dodat neki drugi napad ([flightsim](https://github.com/alphasoc/flightsim))
+- [x] dodat random sleep prije pokretanja Droopescana
+- [x] dodat neki drugi napad ([flightsim](https://github.com/alphasoc/flightsim))
 - [x] dodat content na stranicu
 - [ ] spojit FileStreamConnector da cita `.pcap` od `tcpdumpa`
 - [x] prebacit sam network unutar dockera, dakle <b>ne na hostu</b>
-- [ ] dodat `.env` file u kojem pisu network name i output file i da onda to citaju svi kuis
+- [x] dodat `.env` file u kojem pisu network name i output file i da onda to citaju svi kuis
 
 ## 2) Obrada
 ### Tehnologije za proucit
