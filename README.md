@@ -19,7 +19,7 @@ Evo [tutorial](https://faun.pub/snooping-on-container-traffic-in-docker-compose-
 - [x] dodat random sleep prije pokretanja Droopescana
 - [x] dodat neki drugi napad ([flightsim](https://github.com/alphasoc/flightsim))
 - [x] dodat content na stranicu
-- [ ] spojit FileStreamConnector da cita `.pcap` od `tcpdumpa`
+- [x] spojit FileStreamConnector da cita `.pcap` od `tcpdumpa`
 - [x] prebacit sam network unutar dockera, dakle <b>ne na hostu</b>
 - [x] dodat `.env` file u kojem pisu network name i output file i da onda to citaju svi kuis
 
@@ -31,7 +31,12 @@ Evo [tutorial](https://faun.pub/snooping-on-container-traffic-in-docker-compose-
 
 ### Notes
 - koristit Kafka Streams za pretvaranje `.pcap` u `.csv` pomoću CIC FlowMetera ili Zeeka
-- mozda koristit `magicwand covert` za pretvaranje hmmm? Mislim da ne
+- mozda koristit `magicwand covert` za pretvaranje hmmm? Sigurno NE
+
+### TODO
+- [ ] dodat labeliranje
+- [ ] probat novi [cicflowmeter](https://github.com/datthinh1801/cicflowmeter/tree/main/src/cicflowmeter) za citanje direkt s interface-a
+- [ ] mozda dokerizirat customizirani cicflowmeter
 
 ## 3) Spremanje
 ### Tehnologije za proucit
