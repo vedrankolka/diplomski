@@ -37,6 +37,7 @@ Evo [tutorial](https://faun.pub/snooping-on-container-traffic-in-docker-compose-
 - [ ] dodat labeliranje
 - [ ] probat novi [cicflowmeter](https://github.com/datthinh1801/cicflowmeter/tree/main/src/cicflowmeter) za citanje direkt s interface-a
 - [ ] mozda dokerizirat customizirani cicflowmeter
+- [ ] mozda dodat i pretvaranje u json
 
 ## 3) Spremanje
 ### Tehnologije za proucit
