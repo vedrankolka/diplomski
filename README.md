@@ -31,11 +31,15 @@ Evo [tutorial](https://faun.pub/snooping-on-container-traffic-in-docker-compose-
 
 ### Notes
 - koristit Kafka Streams za pretvaranje `.pcap` u `.csv` pomoću CIC FlowMetera ili Zeeka
-- mozda koristit `magicwand covert` za pretvaranje hmmm? Sigurno NE
+1) predamo path do direktorija generatora (tam je docker-compose.yml)
+2) pomoću `docker-compose ps -q` dodemo do ID-jeva containera
+3) ```docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}},{{index .Config.Labels "hr.fer.diplomski.kolka.attack.label"}}' <ID>``` daje ipv4,isAttack
+Ako nema labelu za attack mozemo zanemarit valjda??? ili pretpostavit da je `benign`
+4) na temelju procitanih parova citamo s kafke i dodajemo labele heheee
 
 ### TODO
 - [ ] dodat labeliranje
-- [ ] probat novi [cicflowmeter](https://github.com/datthinh1801/cicflowmeter/tree/main/src/cicflowmeter) za citanje direkt s interface-a
+- [x] probat novi [cicflowmeter](https://github.com/datthinh1801/cicflowmeter/tree/main/src/cicflowmeter) za citanje direkt s interface-a
 - [ ] mozda dokerizirat customizirani cicflowmeter
 - [ ] mozda dodat i pretvaranje u json
 
