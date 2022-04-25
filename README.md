@@ -42,6 +42,7 @@ Ako nema labelu za attack mozemo zanemarit valjda??? ili pretpostavit da je `ben
 - [x] probat novi [cicflowmeter](https://github.com/datthinh1801/cicflowmeter/tree/main/src/cicflowmeter) za citanje direkt s interface-a
 - [ ] mozda dokerizirat customizirani cicflowmeter
 - [ ] mozda dodat i pretvaranje u json
+- [ ] podesit skriptu `generate-labels.sh` da printa usage i da fakat zapisuje di treba
 
 ## 3) Spremanje
 ### Tehnologije za proucit
