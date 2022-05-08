@@ -60,32 +60,24 @@ public class Pipe {
 
         builder.stream(inputTopic)
                 .mapValues(v -> {
-                    String label = "pimpilinich";
+                    String label;
                     if (header.equals(v)) {
-                        logger.info("It is the header!");
                         label = "attack";
                     } else {
                         String[] row = v.toString().split(",");
-                        logger.info("I have split it successfully!");
                         Boolean isSourceAttacker = labels.get(row[sourceIndex]);
-                        logger.info("isSourceAttacker: " + isSourceAttacker);
                         Boolean isDestinationAttacker = labels.get(row[destinationIndex]);
-                        logger.info("isDestinationAttacker: " + isDestinationAttacker);
                         // if both addresses are unknown, declare NA
                         if (isSourceAttacker == null && isDestinationAttacker == null) {
-                            logger.info("Both ip adresses are null!");
                             label = "NA";
                             // if source or destination is attacker, declare attack
                         } else if (Boolean.TRUE.equals(isSourceAttacker) || Boolean.TRUE.equals(isDestinationAttacker)) {
                             label = "true";
-                            logger.info("One of them is the attacker!");
                             // else declare benign
                         } else {
-                            logger.info("Neither of them is the attacker!");
                             label = "false";
                         }
                     }
-                    logger.info("Is this one an attack? " + label);
                     return v + "," + label;
                 })
                 .to(outputTopic);
@@ -104,6 +96,8 @@ public class Pipe {
                 System.out.println("Count down.");
             }
         });
+
+        logger.info("Starting the stream from topic '" + inputTopic + "' to topic '" + outputTopic + "'.");
 
         try {
             streams.start();
@@ -127,5 +121,12 @@ public class Pipe {
                 .forEach(l -> labels.put(l[0], Boolean.parseBoolean(l[1])));
 
         return labels;
+    }
+
+    private static Map<String, Boolean> loadLabelsKafka(String topic) {
+        Map<String, Boolean> labels = new HashMap<>();
+
+
+        return null;
     }
 }

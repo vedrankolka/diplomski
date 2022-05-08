@@ -5,11 +5,11 @@ Samo neki notes di si pratim kaj radim sad i di stojim
 ### Tehnologije za proucit
 - [Locust](https://locust.io/)
 - [DroopeScan](https://github.com/SamJoan/droopescan)
-- [MagicWand](https://github.com/twosixlabs/magicwand-datatool)
-- [Selenium with Python](https://selenium-python.readthedocs.io/index.html)
-- Neki BrowsingBot da radi benigni promet
+
 ### Notes
-OK jebeš magicwand, nemremo nikaj s njim jer je prelos, napravit cemo sve svoje lol
+OK jebeš magicwand, nemremo nikaj s njim jer je prelos, napravit cemo sve svoje lol.
+
+
 
 Evo [tutorial](https://faun.pub/snooping-on-container-traffic-in-docker-compose-d34764a01276) za snimanje prometa. 
 
@@ -37,12 +37,18 @@ Evo [tutorial](https://faun.pub/snooping-on-container-traffic-in-docker-compose-
 Ako nema labelu za attack mozemo zanemarit valjda??? ili pretpostavit da je `benign`
 4) na temelju procitanih parova citamo s kafke i dodajemo labele heheee
 
+
+Sad smo na tom da preko kafke prebacimo labele ko je napadac a ko nije, ali nije to nuzno,
+mozemo samo iskopirat to u sami container jel tako?
+
 ### TODO
-- [ ] dodat labeliranje
+- [x] dodat labeliranje
 - [x] probat novi [cicflowmeter](https://github.com/datthinh1801/cicflowmeter/tree/main/src/cicflowmeter) za citanje direkt s interface-a
 - [ ] mozda dokerizirat customizirani cicflowmeter
 - [ ] mozda dodat i pretvaranje u json
-- [ ] podesit skriptu `generate-labels.sh` da printa usage i da fakat zapisuje di treba
+- [x] podesit skriptu `generate-labels.sh` da printa usage i da fakat zapisuje di treba
+- [ ] poslat labele na kafku i citat ih s kafke
+- [ ] napisat skriptu koja pokrece sve to
 
 ## 3) Spremanje
 ### Tehnologije za proucit
@@ -51,3 +57,11 @@ Ako nema labelu za attack mozemo zanemarit valjda??? ili pretpostavit da je `ben
 ### TODO
 - [ ] local files sink
 - [ ] hdfs sink
+
+## Pokretanje
+1) pokrenut infrastructure.yml koji pokrece kafku i cicflowmeter
+2) pokrenut generator.yml i odma uz njega kreirat labele i poslat ih na kafku ***
+3) pokrenut labeler (npr docker image)
+4) pokrenut consumera koji to zapisuje na disk
+
+*** nek labeler cita od kud je stao, nije bitno di je, sve dok ne dobi npr "DONE" il tak nes sta mu govori da je gotovo, onda cak mozemo i labeler ubacit u infrastructure.yml
