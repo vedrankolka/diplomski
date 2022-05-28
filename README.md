@@ -44,19 +44,19 @@ mozemo samo iskopirat to u sami container jel tako?
 ### TODO
 - [x] dodat labeliranje
 - [x] probat novi [cicflowmeter](https://github.com/datthinh1801/cicflowmeter/tree/main/src/cicflowmeter) za citanje direkt s interface-a
-- [ ] mozda dokerizirat customizirani cicflowmeter
+- [ ] dokerizirat customizirani cicflowmeter
 - [ ] mozda dodat i pretvaranje u json
 - [x] podesit skriptu `generate-labels.sh` da printa usage i da fakat zapisuje di treba
 - [ ] poslat labele na kafku i citat ih s kafke
-- [ ] napisat skriptu koja pokrece sve to
+- [ ] napisat skriptu koja pokrece sve to: prvo Zookeeper, Kafku, CICFlowMeter i TCPDump, onda Generator i skriptu `generate-labels.sh`, onda tek Labeler, onda tek Spremator
+- [ ] napisat skriptu koja zaustavlja sve: prvo Generator, onda TCPDump pa CICFlowMeter, onda Labeler, pa Spremator, pa Kafku i Zookeeper
 
 ## 3) Spremanje
 ### Tehnologije za proucit
 - [Kafka Connect](https://docs.confluent.io/platform/current/connect/index.html)
 
 ### TODO
-- [ ] local files sink
-- [ ] hdfs sink
+- [ ] Zapakirat spremator u Docker container? Stavit onaj console consumer u nj i pretad ostale stvari preko env varijabli, volume stavimo tu di je
 
 ## Pokretanje
 1) pokrenut infrastructure.yml koji pokrece kafku i cicflowmeter
