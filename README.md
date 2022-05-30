@@ -64,4 +64,8 @@ mozemo samo iskopirat to u sami container jel tako?
 3) pokrenut labeler (npr docker image)
 4) pokrenut consumera koji to zapisuje na disk
 
+## Pisanje rada
+Ako će faliti sadržaja, možemo dodati bazu podataka koju koristi Wrodpress u schemu i možemo dodati Zookeeper kojeg Kafka koristi.
+Možemo dodati cijeli apendix za pokretanje i u nj stavit npr skriptu za pokretanje i za zaustavljanje, tak nekaj
+
 *** nek labeler cita od kud je stao, nije bitno di je, sve dok ne dobi npr "DONE" il tak nes sta mu govori da je gotovo, onda cak mozemo i labeler ubacit u infrastructure.yml
