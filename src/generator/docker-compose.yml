@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.7'
 
 services:
   # wordpress database
@@ -10,6 +10,8 @@ services:
       MYSQL_USER: gudi
       MYSQL_PASSWORD: password
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    labels:
+      hr.fer.diplomski.kolka.attack.label: false
     volumes:
       - db:/var/lib/mysql
   # wordpress server
@@ -18,7 +20,7 @@ services:
     hostname: wordpress
     restart: on-failure
     ports:
-      - 8080:80
+      - 8000:80
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_USER: gudi
@@ -27,6 +29,8 @@ services:
       WORDPRESS_CONFIG_EXTRA: |
         define('WP_HOME', 'http://example.com');
         define('WP_SITEURL', 'http://example.com');
+    labels:
+      hr.fer.diplomski.kolka.attack.label: false
     depends_on:
       - db
     volumes:
@@ -39,6 +43,8 @@ services:
     command: "scan wordpress -u $SUT_ADDRESS"
     environment:
       MAX_SLEEP: "$MAX_SLEEP"
+    labels:
+      hr.fer.diplomski.kolka.attack.label: true
     depends_on:
       - wordpress
     volumes:
@@ -50,6 +56,8 @@ services:
     command: "run"
     environment:
       MAX_SLEEP: "$MAX_SLEEP"
+    labels:
+      hr.fer.diplomski.kolka.attack.label: true
     depends_on:
       - wordpress
     volumes:
@@ -58,6 +66,8 @@ services:
   # locust agent
   locust:
     image: locustio/locust
+    labels:
+      hr.fer.diplomski.kolka.attack.label: false
     volumes:
       - ./:/mnt/locust
     depends_on:

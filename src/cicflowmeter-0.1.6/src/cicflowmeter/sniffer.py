@@ -2,7 +2,7 @@ import argparse
 
 from scapy.sendrecv import AsyncSniffer
 
-from .flow_session import generate_session_class
+from flow_session import generate_session_class
 
 
 def create_sniffer(
@@ -71,7 +71,7 @@ def main():
     )
 
     parser.add_argument(
-        "output",
+        "--output",
         help="output file name (in flow mode) or directory (in sequence mode)",
     )
 

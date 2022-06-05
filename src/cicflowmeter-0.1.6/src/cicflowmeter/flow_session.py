@@ -4,10 +4,10 @@ from collections import defaultdict
 import requests
 from scapy.sessions import DefaultSession
 
-from .features.context.packet_direction import PacketDirection
-from .features.context.packet_flow_key import get_packet_flow_key
-from .flow import Flow
-from .kafka_csv_producer import KafkaCSVProducer
+from features.context.packet_direction import PacketDirection
+from features.context.packet_flow_key import get_packet_flow_key
+from flow import Flow
+from kafka_csv_producer import KafkaCSVProducer
 
 EXPIRED_UPDATE = 40
 MACHINE_LEARNING_API = "http://localhost:8000/predict"

@@ -6,11 +6,6 @@ Samo neki notes di si pratim kaj radim sad i di stojim
 - [Locust](https://locust.io/)
 - [DroopeScan](https://github.com/SamJoan/droopescan)
 
-### Notes
-OK jebeš magicwand, nemremo nikaj s njim jer je prelos, napravit cemo sve svoje lol.
-
-
-
 Evo [tutorial](https://faun.pub/snooping-on-container-traffic-in-docker-compose-d34764a01276) za snimanje prometa. 
 
 ### TODO
