@@ -2,3 +2,4 @@ numpy
 scipy
 scapy
 requests
+kafka-python

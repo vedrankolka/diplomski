@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 # script to find interface of the given docker network
 usage() {
-    echo: "usage: ./find-interface.sh <docker_network_name>"
+    echo "usage: ./find-interface.sh <docker_network_name>"
 }
 
 if [ $# -lt 1 ]; then

@@ -1,5 +1,6 @@
 # python stuff
-*/__pycache__/*
+*__pycache__*
+*.pyc
 *proba*
 # .pcap fileove isto ne zelimo
 *.pcap
@@ -50,3 +51,10 @@ gradle-app.setting
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+*.idea*
+*build*
+*gradle*
+*bin*
+src/cicflowmeter-0.1.6/dist/
+src/cicflowmeter-0.1.6/PKG-INFO

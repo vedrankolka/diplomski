@@ -1,0 +1,32 @@
+version: "3.7"
+
+services:
+
+  zookeeper:
+    hostname: zookeeper
+    image: zookeeper
+    restart: on-failure
+
+  kafka:
+    image: confluentinc/cp-kafka
+    hostname: kafka
+    ports:
+      - 9092:9092
+    depends_on: [zookeeper]
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      # TODO shiii ovo bi moralo bit PLAINTEXT://kafka:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_BROKER_ID: 1
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 1
+      KAFKA_OFFSETS_STORAGE_REPLICATION_FACTOR: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  cicflowmeter:
+    image: cicflowmeter:0.6
+    depends_on: [kafka]
+    restart: on-failure
+    # has to run on host network to see the interface of generator network
+    network_mode: host
+    entrypoint: "python3"
+    command: "sniffer.py --"

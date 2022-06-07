@@ -39,7 +39,7 @@ mozemo samo iskopirat to u sami container jel tako?
 ### TODO
 - [x] dodat labeliranje
 - [x] probat novi [cicflowmeter](https://github.com/datthinh1801/cicflowmeter/tree/main/src/cicflowmeter) za citanje direkt s interface-a
-- [ ] dokerizirat customizirani cicflowmeter
+- [x] dokerizirat customizirani cicflowmeter
 - [ ] mozda dodat i pretvaranje u json
 - [x] podesit skriptu `generate-labels.sh` da printa usage i da fakat zapisuje di treba
 - [ ] poslat labele na kafku i citat ih s kafke
