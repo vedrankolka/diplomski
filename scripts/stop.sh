@@ -8,12 +8,17 @@ if [ ! $DIPLOMSKI_HOME ]; then
 else
     root=$DIPLOMSKI_HOME
 fi
+# load environment variables
+source "$root/.env"
 
-
-cd "$root/src/generator"
+# stop generator
+cd "$root/generator"
 docker-compose --env-file "$root/.env" down || exit 1
 echo "Generator is stopped."
-
-cd "$root"/src/infrastructure
+# stop the labeler
+docker stop $LABELER_NAME
+docker rm $LABELER_NAME
+# stop infrastructure
+cd "$root/infrastructure"
 docker-compose --env-file "$root/.env" down || exit 1
 echo "Infrastructure is down."

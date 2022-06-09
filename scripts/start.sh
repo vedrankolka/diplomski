@@ -13,7 +13,7 @@ find_interface() {
 }
 
 stop_infrastructure() {
-    cd "$root"/src/infrastructure
+    cd "$root"/infrastructure
     docker-compose --env-file "$root/.env" down
 }
 
@@ -29,7 +29,7 @@ source "$root/.env"
 find_interface $NETWORK_NAME
 export INTERFACE=$interface
 # start zookeeper and kafka
-cd "$root"/src/infrastructure
+cd "$root"/infrastructure
 docker-compose --env-file "$root/.env" up -d || exit 1
 # these depend on Kafka, so try to start them a few times and wait inbetween tries
 running_count=0
@@ -61,10 +61,11 @@ fi
 # Else we good.
 echo "Infrastructure is up."
 # only now can the generator be started
-cd "$root/src/generator"
+cd "$root/generator"
 docker-compose --env-file "$root/.env" up -d || (stop_infrastructure || exit 1)
 echo "Generator is running."
 # generate labels and run the labeler
-$root/src/scripts/generate-labels.sh "$root/src/generator/" "$root/src/labeler/labeler/src/main/resources/labels.csv" "$root/.env"
-docker run --rm --volume $root/src/labeler/labeler/src/main/resources:/resources labeler:probni2 /resources/application.properties /resources/labels.csv
+# TODO pokrenut u pozadini
+$root/scripts/generate-labels.sh "$root/generator/" "$root/labeler/src/main/resources/labels.csv" "$root/.env"
+docker run --name $LABELER_NAME --volume $root/labeler/src/main/resources:/resources labeler:3 /resources/application.properties /resources/labels.csv
 # TODO pokrenut LocalFileSink i nekak mu vezat volume da pise tamo di je

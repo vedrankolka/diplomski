@@ -54,8 +54,9 @@ public class Labeler {
 
         final StreamsBuilder builder = new StreamsBuilder();
         builder.stream(inputTopic).mapValues((k, v) -> {
+            logger.info("Got message: " + v);
             String label;
-            if (header.equals(v)) {
+            if (header.equals(v.toString())) {
                 // if it is the header, expand it by adding column "attack"
                 label = "attack";
             } else {
