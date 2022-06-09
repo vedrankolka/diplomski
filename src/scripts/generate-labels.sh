@@ -2,9 +2,10 @@
 # uses docker and docker-compose commands to find out ip addresses of containers and if they are malicious or not
 # expects two arguments: project directory containing the docker-compose.yml and path where labels are written
 usage() {
-    echo "usage: ./generate-labels.sh <project_dir> <labels_path>"
-    echo "    project_dir - Directory of the generator project"
-    echo "    labels_path - Path to file where labels are written"
+    echo "usage: ./generate-labels.sh <project_dir> <labels_path> [env_file_path]"
+    echo "    project_dir   - Directory of the generator project"
+    echo "    labels_path   - Path to file where labels are written"
+    echo "    env_file_path - Path to env file for docker-compose configuration (optional)"
 }
 
 if [ $# -lt 2 ]; then
@@ -18,10 +19,15 @@ workdir=$PWD
 
 project_dir="$1"
 labels_path="$2"
+env_file_path="$3"
 
 cd "$project_dir" || exit 1
 
-containers=$(docker-compose ps -q)
+if [ -z "$env_file_path" ]; then
+    containers=$(docker-compose ps -q)
+else
+    containers=$(docker-compose --env-file $env_file_path ps -q)
+fi
 
 if [ "$containers" = "" ]; then
     echo "No containers found in project $project_dir"

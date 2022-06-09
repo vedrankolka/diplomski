@@ -16,10 +16,6 @@ public class Labeler {
     public static final Logger logger = Logger.getLogger(Labeler.class.getName());
     public static final String INPUT_TOPIC_KEY = "labeler.input.topic";
     public static final String OUTPUT_TOPIC_KEY = "labeler.output.topic";
-    public static final String LABELS_PATH_KEY = "labeler.labels.path";
-    // TODO maybe read header from input.topic with offset=0 ?
-    // TODO maybe read header from a topic "schema-registry" ?
-    // https://kafka.apache.org/26/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#seek-org.apache.kafka.common.TopicPartition-long-
     public static final String HEADER_KEY = "labeler.header";
     public static final String SOURCE_KEY = "src_ip";
     public static final String DESTINATION_KEY = "dst_ip";
@@ -27,21 +23,24 @@ public class Labeler {
     private static final String MISSING_PROPERTY_MSG_TEMPLATE = "A %s is required in the properties file";
 
     public static void main(String[] args) throws Exception {
-        if (args.length < 1) {
-            logger.severe("An argument is expected: path to configuration file");
-            // System.err.println("An argument is expected: path to configuration file");
+        if (args.length < 2) {
+            logger.severe("Two arguments are expected: path to configuration file and path to labels file");
             System.exit(1);
         }
+
+        System.out.println("Properties path: " + args[0]);
+        System.out.println("Labels path: " + args[1]);
 
         Properties props = new Properties();
         props.load(Files.newInputStream(Paths.get(args[0])));
 
-        String labelsPath = getOrThrow(props, LABELS_PATH_KEY);
+        String labelsPath = args[1];
         String header = getOrThrow(props, HEADER_KEY);
         String inputTopic = getOrThrow(props, INPUT_TOPIC_KEY);
         String outputTopic = getOrThrow(props, OUTPUT_TOPIC_KEY);
 
         Map<String, Boolean> labels = loadLabels(labelsPath);
+        logger.info("Loaded " + labels.size() + " labels.");
         List<String> columns = Arrays.asList(header.split(","));
         int sourceIndex = columns.indexOf(SOURCE_KEY);
         int destinationIndex = columns.indexOf(DESTINATION_KEY);
@@ -57,23 +56,23 @@ public class Labeler {
         builder.stream(inputTopic).mapValues((k, v) -> {
             String label;
             if (header.equals(v)) {
+                // if it is the header, expand it by adding column "attack"
                 label = "attack";
             } else {
                 String[] row = v.toString().split(",");
-                Boolean isSourceAttacker = labels.get(row[sourceIndex]);
-                Boolean isDestinationAttacker = labels.get(row[destinationIndex]);
-                // if both addresses are unknown, declare NA
-                if (isSourceAttacker == null && isDestinationAttacker == null) {
-                    label = "NA";
-                    // if source or destination is attacker, declare attack
-                } else if (isSourceAttacker || isDestinationAttacker) {
+                Boolean isSrcAttacker = labels.get(row[sourceIndex]);
+                Boolean isDstAttacker = labels.get(row[destinationIndex]);
+                // if source or destination is attacker, declare attack
+                if (Boolean.TRUE.equals(isSrcAttacker) || Boolean.TRUE.equals(isDstAttacker)) {
                     label = "true";
-                    // else declare benign
+                // if either address is unknown, declare NA
+                } else if (isSrcAttacker == null || isDstAttacker == null) {
+                    label = "NA";
+                // else declare benign
                 } else {
                     label = "false";
                 }
             }
-            logger.info("Is this one an attack? " + label);
             return v + "," + label;
         }).to(outputTopic);
 
@@ -110,8 +109,10 @@ public class Labeler {
 
     private static Map<String, Boolean> loadLabels(String path) throws IOException {
         Map<String, Boolean> labels = new HashMap<>();
+
         Files.readAllLines(Paths.get(path)).stream()
                 .skip(1)
+                .filter(l -> l != null && !l.isBlank())
                 .map(l -> l.split(","))
                 .forEach(l -> labels.put(l[0], Boolean.parseBoolean(l[1])));
 

@@ -6,15 +6,17 @@ services:
     hostname: zookeeper
     image: zookeeper
     restart: on-failure
+    network_mode: host
 
   kafka:
     image: confluentinc/cp-kafka
     hostname: kafka
-    ports:
-      - 9092:9092
+    network_mode: host
+    # ports:
+    #   - 9092:9092
     depends_on: [zookeeper]
     environment:
-      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_ZOOKEEPER_CONNECT: "localhost:2181"
       # TODO shiii ovo bi moralo bit PLAINTEXT://kafka:9092
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
       KAFKA_BROKER_ID: 1
@@ -25,8 +27,8 @@ services:
   cicflowmeter:
     image: cicflowmeter:0.6
     depends_on: [kafka]
-    restart: on-failure
+    restart: always
     # has to run on host network to see the interface of generator network
     network_mode: host
     entrypoint: "python3"
-    command: "sniffer.py --"
+    command: "sniffer.py -i $INTERFACE --flow --broker localhost:9092 --topic $FLOW_CSV_UNLABELED"

@@ -1,4 +1,6 @@
-ipv4,attacker
-172.0.0.4,true
-172.0.0.3,false
-172.0.0.2,false
+ipv4,attack
+172.21.0.2,False
+172.21.0.6,True
+172.21.0.5,True
+172.21.0.4,False
+172.21.0.3,False
