@@ -67,5 +67,5 @@ echo "Generator is running."
 # generate labels and run the labeler
 # TODO pokrenut u pozadini
 $root/scripts/generate-labels.sh "$root/generator/" "$root/labeler/src/main/resources/labels.csv" "$root/.env"
-docker run --name $LABELER_NAME --volume $root/labeler/src/main/resources:/resources labeler:3 /resources/application.properties /resources/labels.csv
+docker run -d --name $LABELER_NAME --network host --volume $root/labeler/src/main/resources:/resources labeler:5 /resources/application.properties /resources/labels.csv
 # TODO pokrenut LocalFileSink i nekak mu vezat volume da pise tamo di je

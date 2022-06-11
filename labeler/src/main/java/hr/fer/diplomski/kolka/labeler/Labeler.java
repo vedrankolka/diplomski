@@ -1,5 +1,7 @@
 package hr.fer.diplomski.kolka.labeler;
 
+import org.apache.kafka.clients.admin.AdminClient;
+import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.Topology;
@@ -10,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class Labeler {
 
@@ -52,17 +55,24 @@ public class Labeler {
             throw new IllegalArgumentException("Header does not have \"" + DESTINATION_KEY + "\" column.");
         }
 
+        createTopics(props, inputTopic, outputTopic);
+        logger.info("source topic = " + inputTopic);
+        logger.info("destination topic = " + outputTopic);
+
         final StreamsBuilder builder = new StreamsBuilder();
         builder.stream(inputTopic).mapValues((k, v) -> {
             logger.info("Got message: " + v);
             String label;
             if (header.equals(v.toString())) {
                 // if it is the header, expand it by adding column "attack"
+                logger.info("It is the header!");
                 label = "attack";
             } else {
                 String[] row = v.toString().split(",");
+                logger.info("row splitted: " + row);
                 Boolean isSrcAttacker = labels.get(row[sourceIndex]);
                 Boolean isDstAttacker = labels.get(row[destinationIndex]);
+                logger.info("isSrcAttacker = " + isSrcAttacker + " isDstAttacker = " + isDstAttacker);
                 // if source or destination is attacker, declare attack
                 if (Boolean.TRUE.equals(isSrcAttacker) || Boolean.TRUE.equals(isDstAttacker)) {
                     label = "true";
@@ -118,5 +128,20 @@ public class Labeler {
                 .forEach(l -> labels.put(l[0], Boolean.parseBoolean(l[1])));
 
         return labels;
+    }
+
+    /**
+     * Creates topics with default configuration.
+     * @param topicNames names of topics to create
+     */
+    private static void createTopics(Properties properties, String ...topicNames) {
+        AdminClient adminClient = AdminClient.create(properties);
+        adminClient.createTopics(
+                Arrays.stream(topicNames)
+                        .map(tn -> new NewTopic(tn, 1, (short) 1))
+                        .collect(Collectors.toList())
+        );
+
+        adminClient.close();
     }
 }
