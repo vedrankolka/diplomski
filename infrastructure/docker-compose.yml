@@ -23,16 +23,18 @@ services:
       KAFKA_OFFSETS_STORAGE_REPLICATION_FACTOR: 1
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
-  # localfilesink:
-  #   image: kolkadiplomski/localfilesink:0.1
-  #   depends_on: [kafka]
-  #   restart: always
-  #   network_mode: host
-  #   # TODO dodat environment
-  #   # entrypoint: "/localfilesink"
-  #   # command: "/consumer.properties"
-  #   volumes:
-  #   - "../data/:/data/"
+  localfilesink:
+    image: kolkadiplomski/localfilesink:0.3
+    depends_on: [kafka]
+    restart: always
+    network_mode: host
+    environment:
+      OUTPUT_FILE: $OUTPUT_FILE
+      FLOW_CSV_LABELED: $FLOW_CSV_LABELED
+    # entrypoint: "/localfilesink"
+    # command: "/consumer.properties"
+    volumes:
+    - "../data/:/data/"
 
   cicflowmeter:
     image: cicflowmeter:0.6
