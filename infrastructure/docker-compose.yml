@@ -17,12 +17,22 @@ services:
     depends_on: [zookeeper]
     environment:
       KAFKA_ZOOKEEPER_CONNECT: "localhost:2181"
-      # TODO shiii ovo bi moralo bit PLAINTEXT://kafka:9092
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
       KAFKA_BROKER_ID: 1
       KAFKA_DEFAULT_REPLICATION_FACTOR: 1
       KAFKA_OFFSETS_STORAGE_REPLICATION_FACTOR: 1
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  # localfilesink:
+  #   image: kolkadiplomski/localfilesink:0.1
+  #   depends_on: [kafka]
+  #   restart: always
+  #   network_mode: host
+  #   # TODO dodat environment
+  #   # entrypoint: "/localfilesink"
+  #   # command: "/consumer.properties"
+  #   volumes:
+  #   - "../data/:/data/"
 
   cicflowmeter:
     image: cicflowmeter:0.6
