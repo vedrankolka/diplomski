@@ -31,10 +31,15 @@ services:
     environment:
       OUTPUT_FILE: $OUTPUT_FILE
       FLOW_CSV_LABELED: $FLOW_CSV_LABELED
-    # entrypoint: "/localfilesink"
-    # command: "/consumer.properties"
     volumes:
     - "../data/:/data/"
+
+  tcpdump:
+    image: kaazing/tcpdump
+    network_mode: host
+    volumes:
+      - ../data/:/data/
+    command: "-i $INTERFACE -w $RAW_DATA_FILE"
 
   cicflowmeter:
     image: cicflowmeter:0.6
