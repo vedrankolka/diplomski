@@ -58,3 +58,5 @@ replay_pid*
 *bin*
 src/cicflowmeter-0.1.6/dist/
 src/cicflowmeter-0.1.6/PKG-INFO
+
+*.csv
