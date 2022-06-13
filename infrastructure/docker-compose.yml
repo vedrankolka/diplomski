@@ -12,8 +12,6 @@ services:
     image: confluentinc/cp-kafka
     hostname: kafka
     network_mode: host
-    # ports:
-    #   - 9092:9092
     depends_on: [zookeeper]
     environment:
       KAFKA_ZOOKEEPER_CONNECT: "localhost:2181"
@@ -24,7 +22,7 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
   localfilesink:
-    image: kolkadiplomski/localfilesink:0.3
+    image: vk50630/localfilesink:1.0
     depends_on: [kafka]
     restart: always
     network_mode: host
@@ -42,7 +40,7 @@ services:
     command: "-i $INTERFACE -w $RAW_DATA_FILE"
 
   cicflowmeter:
-    image: cicflowmeter:0.6
+    image: vk50630/cicflowmeter:1.0
     depends_on: [kafka]
     restart: always
     # has to run on host network to see the interface of generator network

@@ -38,7 +38,7 @@ services:
 
   # scanning attack on the server
   droopescan:
-    image: droopescan:sleepy
+    image: vk50630/droopescan:1.0
     entrypoint: "droopescan"
     command: "scan wordpress -u $SUT_ADDRESS"
     environment:
@@ -47,12 +47,12 @@ services:
       hr.fer.diplomski.kolka.attack.label: true
     depends_on:
       - wordpress
-    volumes:
-      - droopescan:/home/droopescan
+    # volumes:
+    #   - droopescan:/home/droopescan
   
   # flightsim (a few classic attacks)
   flightsim:
-    image: flightsim:sleepy
+    image: vk50630/flightsim:1.0
     command: "run"
     environment:
       MAX_SLEEP: "$MAX_SLEEP"
@@ -60,8 +60,8 @@ services:
       hr.fer.diplomski.kolka.attack.label: true
     depends_on:
       - wordpress
-    volumes:
-      - flightsim:/home/flightsim
+    # volumes:
+    #   - flightsim:/home/flightsim
 
   # locust agent
   locust:
@@ -82,5 +82,5 @@ networks:
 volumes:
   wordpress:
   db:
-  droopescan:
-  flightsim:
+  # droopescan:
+  # flightsim:
