@@ -5,12 +5,23 @@ Samo neki notes di si pratim kaj radim sad i di stojim
 
 ## Ultimate TODO
 - [x] nek se infrastructure vrti na host mreži, bit će lakše zbog Labeler-a brijem
-- [ ] napravit da se sve moguce konfigurira u `.env`
-- [ ] dodat TCPDump docker container u infrastructure i dat mu volume da tam sprema
-- [ ] Zapakirat spremator u Docker container? Stavit onaj console consumer u nj i pretad ostale stvari preko env varijabli, volume stavimo tu di je
+- [x] napravit da se sve moguce konfigurira u `.env`
+- [x] dodat TCPDump docker container u infrastructure i dat mu volume da tam sprema
+- [x] Zapakirat spremator u Docker container? Stavit onaj console consumer u nj i pretad ostale stvari preko env varijabli, volume stavimo tu di je
 - [ ] napisat skriptu koja pokrece sve to: prvo stvara docker network ak ne postoji, onda Zookeeper, Kafku, CICFlowMeter i TCPDump, onda Generator i skriptu `generate-labels.sh`, onda tek Labeler, onda tek Spremator, Spremator moze i ranije zapravo
-- [ ] napisat skriptu koja zaustavlja sve: prvo Generator, onda TCPDump pa CICFlowMeter, onda Labeler, pa Spremator, pa Kafku i Zookeeper
+- [x] napisat skriptu koja zaustavlja sve: prvo Generator, onda TCPDump pa CICFlowMeter, onda Labeler, pa Spremator, pa Kafku i Zookeeper
 - [ ] obrisat nepotreban ispis iz Labelera
+
+### Da bi stvarno bilo prenosivo, još treba sredit MySQL i WP:
+
+Evo SO [odgovor](https://stackoverflow.com/questions/30740828/commit-data-in-a-mysql-container)
+
+- [ ] napravit mysql image koji ne koristi volume
+- [ ] wp image koji ne koristi volume
+- [ ] dodat sav content ispocetka
+- [ ] podesit locustfile.py
+- [ ] commitat slike
+- [ ] pushat slike
 
 ## 1) Generiranje
 ### Tehnologije za proucit DONE
