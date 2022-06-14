@@ -68,5 +68,5 @@ echo "Generator is running."
 $root/scripts/generate-labels.sh "$root/generator/" "$root/labeler/src/main/resources/labels.csv" "$root/.env"
 docker run -d --name $LABELER_NAME --network host \
 --volume $root/labeler/src/main/resources:/resources \
-vk50630/labeler:1.0 /resources/application.properties /resources/labels.csv
+vk50630/labeler:1.0 /resources/application.properties /resources/labels.csv > /dev/null
 echo "Labeler is running."
