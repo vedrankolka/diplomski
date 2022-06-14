@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 public class Labeler {
 
     public static final Logger logger = Logger.getLogger(Labeler.class.getName());
-    public static final String INPUT_TOPIC_KEY = "labeler.input.topic";
-    public static final String OUTPUT_TOPIC_KEY = "labeler.output.topic";
+    public static final String INPUT_TOPIC_KEY = "FLOW_CSV_UNLABELED";
+    public static final String OUTPUT_TOPIC_KEY = "FLOW_CSV_LABELED";
     public static final String HEADER_KEY = "labeler.header";
     public static final String SOURCE_KEY = "src_ip";
     public static final String DESTINATION_KEY = "dst_ip";
@@ -39,8 +39,11 @@ public class Labeler {
 
         String labelsPath = args[1];
         String header = getOrThrow(props, HEADER_KEY);
-        String inputTopic = getOrThrow(props, INPUT_TOPIC_KEY);
-        String outputTopic = getOrThrow(props, OUTPUT_TOPIC_KEY);
+        String inputTopic = System.getenv(INPUT_TOPIC_KEY);
+        String outputTopic = System.getenv(OUTPUT_TOPIC_KEY);
+        if (inputTopic.isEmpty() || outputTopic.isEmpty()) {
+            throw new IllegalArgumentException("Both input and output topics must be set.");
+        }
 
         Map<String, Boolean> labels = loadLabels(labelsPath);
         logger.info("Loaded " + labels.size() + " labels.");
@@ -61,7 +64,6 @@ public class Labeler {
 
         final StreamsBuilder builder = new StreamsBuilder();
         builder.stream(inputTopic).mapValues((k, v) -> {
-            logger.info("Got message: " + v);
             String label;
             if (header.equals(v.toString())) {
                 // if it is the header, expand it by adding column "attack"
@@ -90,7 +92,6 @@ public class Labeler {
         final Topology topology = builder.build();
         try (final KafkaStreams streams = new KafkaStreams(topology, props)) {
             final CountDownLatch latch = new CountDownLatch(1);
-
             // attach shutdown handler to catch control-c
             Runtime.getRuntime().addShutdownHook(new Thread("streams-shutdown-hook") {
                 @Override
