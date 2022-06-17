@@ -11,7 +11,8 @@ Samo neki notes di si pratim kaj radim sad i di stojim
 - [ ] napisat skriptu koja pokrece sve to: prvo stvara docker network ak ne postoji, onda Zookeeper, Kafku, CICFlowMeter i TCPDump, onda Generator i skriptu `generate-labels.sh`, onda tek Labeler, onda tek Spremator, Spremator moze i ranije zapravo
 - [x] napisat skriptu koja zaustavlja sve: prvo Generator, onda TCPDump pa CICFlowMeter, onda Labeler, pa Spremator, pa Kafku i Zookeeper
 - [x] obrisat nepotreban ispis iz Labelera
-- [x] Labeler cita iz env vars imena topica
+- [ ] Labeler cita iz env vars imena topica
+- [ ] popravit localfilesink, nesto da se opet proba spojit nakon sta ne uspije
 
 ### Da bi stvarno bilo prenosivo, još treba sredit MySQL i WP:
 
