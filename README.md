@@ -12,17 +12,19 @@ Samo neki notes di si pratim kaj radim sad i di stojim
 - [x] napisat skriptu koja zaustavlja sve: prvo Generator, onda TCPDump pa CICFlowMeter, onda Labeler, pa Spremator, pa Kafku i Zookeeper
 - [x] obrisat nepotreban ispis iz Labelera
 - [x] Labeler cita iz env vars imena topica
+- [ ] popravit localfilesink, nesto da se opet proba spojit nakon sta ne uspije
 
 ### Da bi stvarno bilo prenosivo, još treba sredit MySQL i WP:
 
 Evo SO [odgovor](https://stackoverflow.com/questions/30740828/commit-data-in-a-mysql-container)
 
-- [ ] napravit mysql image koji ne koristi volume
-- [ ] wp image koji ne koristi volume
+- [x] napravit mysql image koji ne koristi volume
+- [x] wp image koji ne koristi volume
 - [ ] dodat sav content ispocetka
 - [ ] podesit locustfile.py
 - [ ] commitat slike
 - [ ] pushat slike
+- [ ] podesit generator da koristi te slike i ne koristi volume osim Locusta
 
 ## 1) Generiranje
 ### Tehnologije za proucit DONE
