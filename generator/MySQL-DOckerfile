@@ -1,0 +1,6 @@
+# dockerfile for creating a database which stores everything inside the container, not in a volume
+FROM mysql:latest
+
+RUN cp -r /var/lib/mysql /var/lib/mysql-no-volume
+
+CMD ["--datadir", "/var/lib/mysql-no-volume"]

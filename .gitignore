@@ -60,3 +60,6 @@ src/cicflowmeter-0.1.6/dist/
 src/cicflowmeter-0.1.6/PKG-INFO
 
 *.csv
+*.ipynb_checkpoints
+*.png
+*.pdf
