@@ -3,7 +3,7 @@ version: '3.7'
 services:
   # wordpress database
   db:
-    image: vk50630/mysql:tdr
+    image: vk50630/mysql:1.0
     restart: on-failure
     cap_add:
       - SYS_NICE
@@ -17,7 +17,7 @@ services:
 
   # wordpress server
   wordpress:
-    image: vk50630/wordpress:tdr
+    image: vk50630/wordpress:1.0
     hostname: wordpress
     restart: on-failure
     ports:
