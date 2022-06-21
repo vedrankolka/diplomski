@@ -3,8 +3,10 @@ version: '3.7'
 services:
   # wordpress database
   db:
-    image: mysql:5.7
+    image: vk50630/mysql:tdr
     restart: on-failure
+    cap_add:
+      - SYS_NICE
     environment:
       MYSQL_DATABASE: wpdb
       MYSQL_USER: gudi
@@ -12,11 +14,10 @@ services:
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
     labels:
       hr.fer.diplomski.kolka.attack.label: false
-    volumes:
-      - db:/var/lib/mysql
+
   # wordpress server
   wordpress:
-    image: wordpress
+    image: vk50630/wordpress:tdr
     hostname: wordpress
     restart: on-failure
     ports:
@@ -34,7 +35,7 @@ services:
     depends_on:
       - db
     volumes:
-      - wordpress:/var/www/html
+      - ./wordpress-tdr-backup/:/var/www/html/wp-content/
 
   # scanning attack on the server
   droopescan:
@@ -47,9 +48,7 @@ services:
       hr.fer.diplomski.kolka.attack.label: true
     depends_on:
       - wordpress
-    # volumes:
-    #   - droopescan:/home/droopescan
-  
+
   # flightsim (a few classic attacks)
   flightsim:
     image: vk50630/flightsim:1.0
@@ -60,8 +59,6 @@ services:
       hr.fer.diplomski.kolka.attack.label: true
     depends_on:
       - wordpress
-    # volumes:
-    #   - flightsim:/home/flightsim
 
   # locust agent
   locust:
@@ -78,9 +75,3 @@ networks:
   default:
     external:
       name: "$NETWORK_NAME"
-
-volumes:
-  wordpress:
-  db:
-  # droopescan:
-  # flightsim:
