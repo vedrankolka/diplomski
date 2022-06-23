@@ -1,5 +1,6 @@
 # Masters Thesis
 This is the repository for the project developed for my masters thesis.
+In this brach, only the files needed for running the project is given, all of the source code can be found on branch main.
 
 ## Prerequisites
 - Linux
